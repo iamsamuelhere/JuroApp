@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:newsapp/components/AppBar.dart';
 import 'package:newsapp/service/BookmarkModel.dart';
+import 'package:newsapp/service/shareService.dart';
+import 'package:newsapp/service/webview.dart';
 import 'package:newsapp/service/Dbconfig.dart';
 import 'package:newsapp/service/FeedResponse.dart';
 import 'package:sqflite/sqflite.dart';
+
 
 class FeedScreen extends StatefulWidget {
   @override
@@ -22,6 +26,12 @@ class _FeedScreenState extends State<FeedScreen> {
     );
     return raw;
   }
+
+
+   
+ 
+
+ 
 
   TextEditingController _noteInBookmark = TextEditingController();
   @override
@@ -145,20 +155,17 @@ class _FeedScreenState extends State<FeedScreen> {
                                                       Icons.source_outlined),
                                                 ),
                                                 label: Text(key.source.name)),
-                                        GestureDetector(
-                                          onTap: () {
-                                            print("hi");
-                                          },
-                                          child: Chip(
-                                            label: Text("View more"),
-                                          ),
-                                        ),
+                                    
                                         SizedBox(
                                           width: 10.0,
                                         ),
-                                        IconButton(
-                                            icon: Icon(Icons.share),
-                                            onPressed: () {}),
+                                    
+                                            IconButton(
+                                            icon: Icon(Icons.visibility),
+                                            onPressed: () {
+                                              launchInBrowser(key.url);
+                                            }),
+
                                         IconButton(
                                             icon: Icon(Icons.favorite),
                                             onPressed: () {
@@ -197,7 +204,8 @@ class _FeedScreenState extends State<FeedScreen> {
                                                         ),
                                                       ),
                                                       actions: [
-                                                        OutlinedButton(
+                                                        ElevatedButton(
+                                                          
                                                           onPressed: () {
                                                             addBookmarkToDatabase(
                                                               Bookmark(
@@ -216,13 +224,24 @@ class _FeedScreenState extends State<FeedScreen> {
                                                                   ),
                                                             );
                                                             print("added");
+                                                            _noteInBookmark.clear();
                                                             Navigator.pop(context);
+                                                     Fluttertoast.showToast(
+                                                       gravity: ToastGravity.CENTER,
+                                                       msg:"✔ Added to bookmark");
                                                           },
-                                                          child: Text("Add"),
+                                                          child: Text("Add to bookmark"),
+                                                          
                                                         )
                                                       ],
                                                     );
                                                   });
+                                            }),
+                                                IconButton(
+                                            icon: Icon(Icons.share),
+                                            onPressed: () {
+
+  onShare(context,key.title,key.url);
                                             }),
                                       ],
                                     ),

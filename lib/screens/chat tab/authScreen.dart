@@ -29,6 +29,17 @@ class _AuthScreenState extends State<AuthScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           
           children: [
+            Container(
+              width: 100,
+              child: Card(
+                  
+                color: Colors.red,
+                child: Image(
+                  width: 50.0,
+
+                  image: AssetImage('images/Kf2so.png'),),),
+            ),
+
             Text("Auth with Google"),
             ElevatedButton(onPressed:()async{
 
@@ -55,7 +66,10 @@ class _AuthScreenState extends State<AuthScreen> {
               }
             , child:Text("Continue with Google"),),
             if(userc!=null)Text("${userc.additionalUserInfo.isNewUser}"),
-            IconButton(icon: Icon(Icons.follow_the_signs), onPressed:googleSignout)
+            IconButton(icon: Icon(Icons.follow_the_signs), onPressed:googleSignout),
+            ElevatedButton(onPressed: (){
+              Fluttertoast.showToast(msg:"Added");
+            }, child: Text("show "))
           ],
         ),
       )

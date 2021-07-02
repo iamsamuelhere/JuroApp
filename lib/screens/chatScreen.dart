@@ -14,26 +14,37 @@ ChatScreen({this.userc});
 var topic=[
   {
    "topic":"Business",
+   "image":"images/topicschat/business.jpg",
    "screen":BusinessChat(),
 },
   {
    "topic":"Entertainment",
+   "image":"images/topicschat/business.jpg",
+
    "screen":EntertainmentChat(),
 },
   {
    "topic":"Health",
+   "image":"images/topicschat/business.jpg",
+
    "screen":HealthChat(),
 },
   {
    "topic":"Science",
+   "image":"images/topicschat/business.jpg",
+
    "screen":ScienceChat(),
 },
   {
    "topic":"Sports",
+   "image":"images/topicschat/business.jpg",
+
    "screen":SportsChat(),
 },
   {
    "topic":"Technology",
+   "image":"images/topicschat/business.jpg",
+
    "screen":TechnologyChat(),
 },
 ];
@@ -69,12 +80,17 @@ var topic=[
 
     body:ListView(
      
-      children: topic.map((e) => ChatCategory(
-        screen: (){Navigator.push(context, MaterialPageRoute(
-        builder: (context)=>e['screen'])
-        );
-        },
-        title: e['topic'],),).toList()
+      // children: topic.map((e) => ChatCategory(
+      //   image:e['image'],
+      //   screen: (){Navigator.push(context, MaterialPageRoute(
+      //   builder: (context)=>e['screen'])
+      //   );
+      //   },
+      //   title: e['topic'],),).toList()
+
+      children:[
+        Text("a")
+      ]
       
   
       
@@ -88,7 +104,8 @@ var topic=[
 class ChatCategory extends StatelessWidget {
   Function screen;
   String title;
-ChatCategory({this.screen,this.title});
+  String image;
+ChatCategory({this.screen,this.title,this.image});
 
   @override
   Widget build(BuildContext context) {
@@ -98,13 +115,9 @@ ChatCategory({this.screen,this.title});
       margin: EdgeInsets.symmetric(horizontal:40,vertical: 10),
       child: Card(
         elevation: 5,
-        child: Container(
-        
-        margin: EdgeInsets.all(25.0),
-        padding: EdgeInsets.all(25.0),
-        child: Align(
-          alignment: Alignment.center,
-          child: Text(title,style:TextStyle(fontSize: 25.0,fontWeight: FontWeight.bold) ,))),),
+        child: Image(
+          width: 100.0,height:100.0,
+          image:AssetImage(image))),
     ),
       );
   }
