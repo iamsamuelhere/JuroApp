@@ -24,57 +24,57 @@ class _AuthScreenState extends State<AuthScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: appBar(),
-      body:Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          
-          children: [
-            Container(
-              width: 100,
-              child: Card(
-                  
-                color: Colors.red,
-                child: Image(
-                  width: 50.0,
+      body: LoginScreen()
+    );
+  }
+}
 
-                  image: AssetImage('images/Kf2so.png'),),),
-            ),
+class LoginScreen extends StatelessWidget {
+  const LoginScreen({
+    Key key,
+  }) : super(key: key);
 
-            Text("Auth with Google"),
-            ElevatedButton(onPressed:()async{
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      
+      children: [
+     
 
-               userc= await signInWithGoogle();
-               if(userc!=null){
-                 print(userc.additionalUserInfo.profile);
-                
-               Fluttertoast.showToast(msg:"SignedIn as : ");
-                   pushNewScreen(
-        context,
+        Text("Auth with Google"),
+        ElevatedButton(onPressed:()async{
 
-        screen: ChatScreen(
-         userc: userc,
-        ),
+           userc= await signInWithGoogle();
+           if(userc!=null){
+             print(userc.additionalUserInfo.profile);
+            
+           Fluttertoast.showToast(msg:"SignedIn as : ${userc.user.email}");
+               pushNewScreen(
+    context,
 
-        withNavBar: true, // OPTIONAL VALUE. True by default.
-        pageTransitionAnimation: PageTransitionAnimation.cupertino,
+    screen: ChatScreen(
+     userc: userc,
+    ),
+
+    withNavBar: true, // OPTIONAL VALUE. True by default.
+    pageTransitionAnimation: PageTransitionAnimation.cupertino,
     );
 
-                 
-               }
-                 
-           
-              }
-            , child:Text("Continue with Google"),),
-            if(userc!=null)Text("${userc.additionalUserInfo.isNewUser}"),
-            IconButton(icon: Icon(Icons.follow_the_signs), onPressed:googleSignout),
-            ElevatedButton(onPressed: (){
-              Fluttertoast.showToast(msg:"Added");
-            }, child: Text("show "))
-          ],
-        ),
-      )
-
+             
+           }
+             
+       
+          }
+        , child:Text("Continue with Google"),),
+        Text(userc.toString()),
       
+        IconButton(icon: Icon(Icons.follow_the_signs), onPressed:(){
+          googleSignout();
+
+        }),
+ 
+      ],
     );
   }
 }
