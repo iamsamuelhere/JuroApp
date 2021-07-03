@@ -26,7 +26,7 @@ class _ChatScreenState extends State<ChatScreen> {
     {
       "topic": "Business",
       "image": "images/topicschat/business.jpg",
-      "screen": BusinessChat(),
+      "screen": BusinessChat(user: userc),
     },
     {
       "topic": "Entertainment",
