@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:newsapp/components/AppBar.dart';
 import 'package:newsapp/service/BookmarkModel.dart';
+import 'package:newsapp/service/DataProvider.dart';
 import 'package:newsapp/service/shareService.dart';
 import 'package:newsapp/service/webview.dart';
 import 'package:newsapp/service/Dbconfig.dart';
 import 'package:newsapp/service/FeedResponse.dart';
+import 'package:provider/provider.dart';
 import 'package:sqflite/sqflite.dart';
 
 
@@ -37,7 +39,16 @@ class _FeedScreenState extends State<FeedScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: appBar(),
+      appBar: appBar(
+       actions: [
+          IconButton(icon: Icon(Provider.of<Data>(context).modeIcon),
+          onPressed: (){
+          Provider.of<Data>(context,listen:false ).updateMode();
+          },
+          
+          )
+        ]
+      ),
       body: Column(
         children: [
           SizedBox(

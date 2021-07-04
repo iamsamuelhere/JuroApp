@@ -3,9 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:newsapp/components/AppBar.dart';
 
 import 'package:newsapp/screens/chatScreen.dart';
+import 'package:newsapp/service/DataProvider.dart';
 import 'package:newsapp/service/GoogleAuth.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:provider/provider.dart';
 
 
 
@@ -48,13 +50,15 @@ class LoginScreen extends StatelessWidget {
            userc= await signInWithGoogle();
            if(userc!=null){
              print(userc.additionalUserInfo.profile);
-            
+              
+              Provider.of<Data>(context,listen: false).updateUserCredential(userc);
+
            Fluttertoast.showToast(msg:"SignedIn as : ${userc.user.email}");
                pushNewScreen(
     context,
 
     screen: ChatScreen(
-     userc: userc,
+
     ),
 
     withNavBar: true, // OPTIONAL VALUE. True by default.

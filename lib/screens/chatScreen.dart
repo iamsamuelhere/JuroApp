@@ -3,8 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:newsapp/screens/favouriteSceen.dart';
 import 'package:newsapp/screens/feedScreen.dart';
+import 'package:newsapp/service/DataProvider.dart';
 import 'package:newsapp/service/GoogleAuth.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
+import 'package:provider/provider.dart';
 
 import 'chat tab/Chat topic Screens/business.dart';
 import 'chat tab/Chat topic Screens/entertainment.dart';
@@ -14,8 +16,8 @@ import 'chat tab/Chat topic Screens/sports.dart';
 import 'chat tab/Chat topic Screens/technology.dart';
 
 class ChatScreen extends StatefulWidget {
-  UserCredential userc;
-  ChatScreen({this.userc});
+ 
+
 
   @override
   _ChatScreenState createState() => _ChatScreenState();
@@ -26,7 +28,7 @@ class _ChatScreenState extends State<ChatScreen> {
     {
       "topic": "Business",
       "image": "images/topicschat/business.jpg",
-      "screen": BusinessChat(user: userc),
+      "screen": BusinessChat(),
     },
     {
       "topic": "Entertainment",
@@ -57,7 +59,8 @@ class _ChatScreenState extends State<ChatScreen> {
 
   @override
   Widget build(BuildContext context) {
-    if (widget.userc.additionalUserInfo.isNewUser == true)
+     UserCredential userc=Provider.of<Data>(context).userc;
+    if (userc.additionalUserInfo.isNewUser == true)
       Future.delayed(Duration.zero, () => dialog(context));
 
     return Scaffold(
@@ -68,7 +71,7 @@ class _ChatScreenState extends State<ChatScreen> {
             child: ClipOval(
               child: Image(
                 image: NetworkImage(
-                    widget.userc.additionalUserInfo.profile['picture']),
+                  userc.additionalUserInfo.profile['picture']),
               ),
             ),
           ),
@@ -132,13 +135,15 @@ class _ChatScreenState extends State<ChatScreen> {
     showDialog(
         context: context,
         builder: (context) {
+    UserCredential user=Provider.of<Data>(context).userc;
+
           return AlertDialog(
             title: Text(
               "Guidelines",
               textAlign: TextAlign.center,
             ),
             content: Column(mainAxisSize: MainAxisSize.min, children: [
-              Text("Welcome ${widget.userc.user.displayName}"),
+              Text("Welcome ${user.user.displayName}"),
               Text("Rules to follow")
             ]),
           );
