@@ -57,7 +57,6 @@ class _FavouriteScreenState extends State<FavouriteScreen> {
                           var key = snapshot.data[index];
                           print("------------------------");
                           print(key.urlToImage);
-                    
 
                           print(key.category);
                           return Column(
@@ -88,81 +87,7 @@ class _FavouriteScreenState extends State<FavouriteScreen> {
                                         )),
                                     GestureDetector(
                                         onTap: () {
-                                          showModalBottomSheet(
-                                              context: context,
-                                              builder: (context) {
-                                                return Column(
-                                                  mainAxisSize:
-                                                      MainAxisSize.min,
-                                                  children: [
-                                                    ListTile(
-                                                      onTap: () {
-                                                        launchInBrowser(
-                                                            key.url);
-                                                      },
-                                                      leading: Icon(
-                                                          Icons.visibility),
-                                                      title: Text("Read more"),
-                                                      subtitle: Text(
-                                                          "View the original news source"),
-                                                    ),
-                                                    ListTile(
-                                                      onTap: () {
-                                                        showDialog(
-                                                            context: context,
-                                                            builder: (context) {
-                                                              return AlertDialog(
-                                                                  title: Row(
-                                                                    children: [
-                                                                      Icon(Icons
-                                                                          .edit),
-                                                                      Text(
-                                                                          "your note")
-                                                                    ],
-                                                                  ),
-                                                                  content: Text(
-                                                                      key.note));
-                                                            });
-                                                      },
-                                                      leading:
-                                                          Icon(Icons.note_add),
-                                                      title: Text("Read note"),
-                                                      subtitle: Text(
-                                                          "Read the note you had taken during bookmark"),
-                                                    ),
-                                                    ListTile(
-                                                      onTap: () {
-                                                        deletePersonWithId(
-                                                            key.id);
-                                                        setState(() {
-                                                          Navigator.pop(
-                                                              context);
-                                                              Fluttertoast.showToast(msg: "🚮 Deleted bookmark");
-                                                        });
-                                                      },
-                                                      leading:
-                                                          Icon(Icons.delete),
-                                                      title: Text(
-                                                          "Delete bookmark"),
-                                                      subtitle: Text(
-                                                          "Once deleted cannot be retrived"),
-                                                    ),
-                                                         ListTile(
-                                                      onTap: () {
-                                                      
-                                                      onShare(context,key.title,key.url);
-                                                      },
-                                                      leading:
-                                                          Icon(Icons.share),
-                                                      title: Text(
-                                                          "Share bookmark"),
-                                                      subtitle: Text(
-                                                          "share tour bookmark with others"),
-                                                    ),
-                                                  ],
-
-                                                );
-                                              });
+                                          bottomsheet(context, key);
                                         },
                                         child: Icon(Icons.more_vert))
                                   ],
@@ -177,5 +102,61 @@ class _FavouriteScreenState extends State<FavouriteScreen> {
                 return CircularProgressIndicator();
               },
             )));
+  }
+
+  Future bottomsheet(BuildContext context, key) {
+    return showModalBottomSheet(
+        context: context,
+        builder: (context) {
+          return Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              ListTile(
+                onTap: () {
+                  launchInBrowser(key.url);
+                },
+                leading: Icon(Icons.visibility),
+                title: Text("Read more"),
+                subtitle: Text("View the original news source"),
+              ),
+              ListTile(
+                onTap: () {
+                  showDialog(
+                      context: context,
+                      builder: (context) {
+                        return AlertDialog(
+                            title: Row(
+                              children: [Icon(Icons.edit), Text("your note")],
+                            ),
+                            content: Text(key.note));
+                      });
+                },
+                leading: Icon(Icons.note_add),
+                title: Text("Read note"),
+                subtitle: Text("Read the note you had taken during bookmark"),
+              ),
+              ListTile(
+                onTap: () {
+                  deletePersonWithId(key.id);
+                  setState(() {
+                    Navigator.pop(context);
+                    Fluttertoast.showToast(msg: "🚮 Deleted bookmark");
+                  });
+                },
+                leading: Icon(Icons.delete),
+                title: Text("Delete bookmark"),
+                subtitle: Text("Once deleted cannot be retrived"),
+              ),
+              ListTile(
+                onTap: () {
+                  onShare(context, key.title, key.url);
+                },
+                leading: Icon(Icons.share),
+                title: Text("Share bookmark"),
+                subtitle: Text("share tour bookmark with others"),
+              ),
+            ],
+          );
+        });
   }
 }

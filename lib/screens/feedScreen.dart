@@ -73,11 +73,7 @@ class _FeedScreenState extends State<FeedScreen> {
                       topic = "entertainment";
                     });
                   }),
-                  topicChoose("general", () {
-                    setState(() {
-                      topic = "general";
-                    });
-                  }),
+              
                   topicChoose("Health", () {
                     setState(() {
                       topic = "health";
@@ -98,11 +94,7 @@ class _FeedScreenState extends State<FeedScreen> {
                       topic = "technology";
                     });
                   }),
-                  ElevatedButton(
-                      onPressed: () {
-                        Navigator.pushNamed(context, "/ch");
-                      },
-                      child: Text("chscreen"))
+              
                 ],
               ),
             ),
