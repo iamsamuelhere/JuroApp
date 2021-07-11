@@ -1,4 +1,4 @@
-# newsapp
+# JuroApp 🤓
 
 > An app to get latest news, having community chats, saving and taking notes of the news, with dark mode feature.<br>
 **Integrating RESTapi, cloud firestore (NoSQL db) from firebase, Google authentication, SQLite database, State management using Provider.**
