@@ -4,10 +4,10 @@ import 'package:http/http.dart' as http;
  
  
  Future <NewsModel> fetchdata(String topic) async {
-  //  https://newsapi.org/v2/top-headlines?category=sports&apiKey=e2378d13af214683b7ffc7ff3618ec26&country=in
+
   Map<String,String> query={
      "category":topic,
-     "apiKey":"e2378d13af214683b7ffc7ff3618ec26",
+     "apiKey":"",
      "country":"in"
 
   };
